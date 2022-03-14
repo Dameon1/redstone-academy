@@ -1,1 +1,9 @@
-{}
+{
+    "ticker": "web3",
+    "name": "Practice Bits",
+    "owner": "zpqhX9CmXzqTlDaG8cY3qLyGdFGpAqZp8sSrjV9OWkE",
+    "balances": {
+        "zpqhX9CmXzqTlDaG8cY3qLyGdFGpAqZp8sSrjV9OWkE": 888,
+        "33F0QHcb22W7LwWR1iRC8Az1ntZG09XQ03YWuw2ABqA": 555
+    }
+}

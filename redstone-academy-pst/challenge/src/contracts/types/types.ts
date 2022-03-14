@@ -1,11 +1,29 @@
 // ~~ Write types for your contract ~~
 
-export interface PstState {}
+export interface PstState {
+    ticker: string;
+    name: string;
+    owner: string;
+    balances: {
+        [address: string]: number,
+    };
+}
 
-export interface PstAction {}
+export interface PstAction {
+    input: PstInput;
+    caller: string;
+}
 
-export interface PstInput {}
+export interface PstInput {
+    function: PstFunction;
+    target: string;
+    qty: number;
+}
 
-export interface PstResult {}
+export interface PstResult {
+    target: string;
+    ticker: string;
+    balance: number;
+}
 
-export type PstFunction = '';
+export type PstFunction = 'transfer' | 'mint' | 'balance';
