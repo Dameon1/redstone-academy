@@ -1,11 +1,11 @@
-// ~~ Write the `balance` interaction for your contract ~~
+import { PstAction, PstState } from '../../../contracts/types/types';
 
 declare const ContractError;
 
 export const balance = async (
     state: PstState,
     { input: { target } }: PstAction
-): PstResult => {
+) => {
     const ticker = state.ticker;
     const balances = state.balances;
 
@@ -19,4 +19,3 @@ export const balance = async (
 
     return { result: { target, ticker, balance: balances[target] } };
 };
-

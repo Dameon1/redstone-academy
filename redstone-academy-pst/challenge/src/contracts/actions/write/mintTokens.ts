@@ -1,12 +1,12 @@
 // ~~ Write the `mintTokens` interaction for your contract ~~
-
+import { PstAction, PstState } from '../../../contracts/types/types';
 
 declare const ContractError;
 
 export const mintTokens = async (
     state: PstState,
     { caller, input: { qty } }: PstAction
-): PstResult => {
+) => {
     const balances = state.balances;
 
     if (qty <= 0) {
@@ -20,4 +20,3 @@ export const mintTokens = async (
     balances[caller] ? (balances[caller] += qty) : (balances[caller] = qty);
     return { state };
 };
-
