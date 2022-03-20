@@ -35,18 +35,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapState } from 'vuex';
-import PacmanLoader from 'vue-spinner/src/PacmanLoader.vue';
+import Vue from "vue";
+import { mapState } from "vuex";
+import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
 
 export default Vue.extend({
-  name: 'BalancesList',
+  name: "BalancesList",
   props: {
     balances: Array,
   },
   data() {
     return {
-      color: '#c0fdff',
+      color: "#c0fdff",
       loaded: false,
     };
   },
@@ -65,24 +65,28 @@ export default Vue.extend({
       }
       if (!this.balances[this.userIdx]) {
         this.$toasted.error(
-          'Your balance is not enough to transfer tokens. Please mint some FC first.',
+          "Your balance is not enough to transfer tokens. Please mint some FC first.",
           { duration: 3000 }
         );
-        this.$refs['balanceTransfer'].value = '';
+        this.$refs["balanceTransfer"].value = "";
         return;
       }
-      this.$toasted.show('Processing...');
+      this.$toasted.show("Processing...");
 
       // ~~ Call `transfer` method ~~
-      const tx = null;
+      const tx = await this.contract.transfer({
+        target: address,
+        qty: parseInt(qty),
+      });
 
       // ~~ Mine a block ~~
+      await this.arweave.api.get("mine");
 
       // ~~ Set new balances list by calling `currentState` method
-      let newResult = null;
+      let newResult = await this.contract.currentState();
       if (newResult) {
         this.$toasted.clear();
-        this.$toasted.global.success('Processed!');
+        this.$toasted.global.success("Processed!");
         this.$toasted.global.close(
           `<div>Interaction id: <a href="https://scanner.redstone.tools/#/app/interaction/${tx}" target="_blank">${tx}</a></div>`
         );
@@ -94,7 +98,7 @@ export default Vue.extend({
     userIdx() {
       return this.balances.findIndex((b) => b.address == this.walletAddress);
     },
-    ...mapState(['state', 'contract', 'arweave', 'walletAddress']),
+    ...mapState(["state", "contract", "arweave", "walletAddress"]),
   },
 });
 </script>

@@ -18,40 +18,44 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapState } from 'vuex';
-import { deployedContracts } from '../../deployed-contracts';
+import Vue from "vue";
+import { mapState } from "vuex";
+import { deployedContracts } from "../../deployed-contracts";
 
 export default Vue.extend({
-  name: 'Header',
+  name: "Header",
   methods: {
     async mint() {
       if (!this.$refs.balanceMint.value) {
         return;
       }
-      this.$toasted.show('Processing...');
+      this.$toasted.show("Processing...");
 
       // ~~ Post `mint` interaction and mine a block ~~
-      const txId = null;
+      const txId = await this.contract.writeInteraction({
+        function: "mint",
+        qty: parseInt(this.$refs.balanceMint.value),
+      });
+      await this.arweave.api.get("mine");
 
       // ~~ Set the balances by calling `currentState` method ~~
-      const newResult = null;
+      const newResult = await this.contract.currentState();
       if (newResult) {
         this.$toasted.clear();
-        this.$toasted.global.success('Processed!');
+        this.$toasted.global.success("Processed!");
         this.$toasted.global.close(
           `<div>Interaction id: <a href="https://scanner.redstone.tools/#/app/interaction/${txId}" target="_blank">${txId}</a></div>`
         );
       }
       this.$parent.updateBalances(newResult);
-      this.$refs.balanceMint = '';
+      this.$refs.balanceMint = "";
     },
   },
   computed: {
     contractAddress() {
       return deployedContracts.fc;
     },
-    ...mapState(['contract', 'arweave', 'walletAddress']),
+    ...mapState(["contract", "arweave", "walletAddress"]),
   },
 });
 </script>
