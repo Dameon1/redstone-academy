@@ -5,6 +5,7 @@ import { JWKInterface } from 'arweave/node/lib/wallet';
 import {
     ArWallet,
     LoggerFactory,
+    PstState,
     PstContract,
     SmartWeave,
     SmartWeaveNodeFactory,
@@ -18,7 +19,7 @@ let contractSrc: string;
 let wallet: JWKInterface;
 let walletAddress: string;
 
-//let initialState: PstState;
+let initialState: PstState;
 
 let arweave: Arweave;
 let smartweave: SmartWeave;
