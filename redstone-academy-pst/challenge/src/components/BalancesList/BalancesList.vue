@@ -81,7 +81,6 @@ export default Vue.extend({
 
       // ~~ Mine a block ~~
       await this.arweave.api.get("mine");
-
       // ~~ Set new balances list by calling `currentState` method
       let newResult = await this.contract.currentState();
       if (newResult) {

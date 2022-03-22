@@ -24,3 +24,7 @@ export const smartweave: SmartWeave =
 // // const smartweave = new SmartWeaveWebFactory.memCached(arweave);
 // export const smartweave: SmartWeave =
 //     SmartWeaveWebFactory.memCachedBased(arweave).build();
+
+// Set up Arweave client
+
+
