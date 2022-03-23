@@ -36,15 +36,16 @@ export default Vue.extend({
         function: "mint",
         qty: parseInt(this.$refs.balanceMint.value),
       });
-
-      await this.arweave.api.get("mine");
+      console.log("Mint txId: ", txId);
+      //await this.arweave.api.get("mine");
       // ~~ Set the balances by calling `currentState` method ~~
       const newResult = await this.contract.currentState();
+      console.log("newResult: ", newResult);
       if (newResult) {
         this.$toasted.clear();
         this.$toasted.global.success("Processed!");
         this.$toasted.global.close(
-          `<div>Interaction id: <a href="https://scanner.redstone.tools/#/app/interaction/${txId}" target="_blank">${txId}</a></div>`
+          `<div>Interaction id: <a href="https://viewblock.io/arweave/tx/${txId}" target="_blank">${txId}</a></div>`
         );
       }
       this.$parent.updateBalances(newResult);

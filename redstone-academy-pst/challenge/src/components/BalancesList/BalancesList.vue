@@ -80,14 +80,14 @@ export default Vue.extend({
       });
 
       // ~~ Mine a block ~~
-      await this.arweave.api.get("mine");
+      //await this.arweave.api.get("mine");
       // ~~ Set new balances list by calling `currentState` method
       let newResult = await this.contract.currentState();
       if (newResult) {
         this.$toasted.clear();
         this.$toasted.global.success("Processed!");
         this.$toasted.global.close(
-          `<div>Interaction id: <a href="https://scanner.redstone.tools/#/app/interaction/${tx}" target="_blank">${tx}</a></div>`
+          `<div>Interaction id: <a href="https://viewblock.io/arweave/tx/${tx}" target="_blank">${tx}</a></div>`
         );
       }
       this.$parent.updateBalances(newResult);
