@@ -38,6 +38,7 @@
 import Vue from "vue";
 import { mapState } from "vuex";
 import PacmanLoader from "vue-spinner/src/PacmanLoader.vue";
+import { arweave } from "../../pst-contract";
 
 export default Vue.extend({
   name: "BalancesList",
@@ -78,6 +79,9 @@ export default Vue.extend({
         target: address,
         qty: parseInt(qty),
       });
+      console.log("Transfer tx: ", tx);
+      //await arweave.transactions.sign(tx);
+      // ~~ Set the balances by calling `currentState` method ~~
 
       // ~~ Mine a block ~~
       //await this.arweave.api.get("mine");

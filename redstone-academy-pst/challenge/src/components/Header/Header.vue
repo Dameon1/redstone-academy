@@ -36,11 +36,11 @@ export default Vue.extend({
         function: "mint",
         qty: parseInt(this.$refs.balanceMint.value),
       });
-      console.log("Mint txId: ", txId);
+
       //await this.arweave.api.get("mine");
       // ~~ Set the balances by calling `currentState` method ~~
       const newResult = await this.contract.currentState();
-      console.log("newResult: ", newResult);
+      console.log(newResult);
       if (newResult) {
         this.$toasted.clear();
         this.$toasted.global.success("Processed!");

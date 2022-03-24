@@ -37,7 +37,7 @@ export default new Vuex.Store({
 
       let walletAddress;
       await window.arweaveWallet.connect(
-        ['ACCESS_ADDRESS', "SIGN_TRANSACTION", "ACCESS_ALL_ADDRESSES", "ACCESS_PUBLIC_KEY", "SIGNATURE"]).then(data => console.log(data, "data"))
+        ['ACCESS_ADDRESS', "ACCESS_PUBLIC_KEY"]).then(data => console.log(data, "data"))
         .catch(err => console.log(err));
       await window.arweaveWallet.getActiveAddress()
         .then(data => walletAddress = data);
@@ -46,8 +46,10 @@ export default new Vuex.Store({
       console.log("currentAddress", walletAddress)
       // const contract: Contract = smartweave
       //   .pst(deployedContracts.fc)
-      //   .connect(wallet);
-      const contract = smartweave.pst(deployedContracts.fc).connect(wallet);
+      //   .connect("use_wallet");
+      const contract = await smartweave.pst(deployedContracts.fc).connect("use_wallet");
+      console.log("contract", contract);
+
       commit('setContract', contract);
       const { state, validity } = await contract.readState();
       commit('setState', state);
